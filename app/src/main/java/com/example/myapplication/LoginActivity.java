@@ -67,19 +67,39 @@ public class LoginActivity extends AppCompatActivity {
 
                     PenggunaService service = retrofit.create(PenggunaService.class);
 
-                    Call<List<Pengguna>> call = service.signin(et_username.getText().toString(), et_password.getText().toString());
+                    Call<Pengguna> call = service.signin(et_username.getText().toString(), et_password.getText().toString());
 
-                    call.enqueue(new Callback<List<Pengguna>>() {
+                    call.enqueue(new Callback<Pengguna>() {
                         @Override
-                        public void onResponse(Call<List<Pengguna>> call, Response<List<Pengguna>> response) {
-                            
+                        public void onResponse(Call<Pengguna> call, Response<Pengguna> response) {
+                            Pengguna data = response.body();
+
+                            if(data == null){
+                                Toast.makeText(getApplicationContext(),"Pengguna tidak terdaftar", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(getApplicationContext(),"Pengguna terdaftar", Toast.LENGTH_SHORT).show();
+
+                            }
+
                         }
 
                         @Override
-                        public void onFailure(Call<List<Pengguna>> call, Throwable throwable) {
+                        public void onFailure(Call<Pengguna> call, Throwable throwable) {
 
                         }
                     });
+
+//                    call.enqueue(new Callback<List<Pengguna>>() {
+//                        @Override
+//                        public void onResponse(Call<List<Pengguna>> call, Response<List<Pengguna>> response) {
+//                            Pengguna data = response.body();
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<List<Pengguna>> call, Throwable throwable) {
+//
+//                        }
+//                    });
                     //Toast.makeText(getApplicationContext(), "Pengguna tidak terdaftar", Toast.LENGTH_SHORT).show();
                 }
             }
