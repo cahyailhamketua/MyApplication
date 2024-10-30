@@ -13,6 +13,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class LoginActivity extends AppCompatActivity {
 
     @Override
@@ -54,7 +62,24 @@ public class LoginActivity extends AppCompatActivity {
                 else {
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl("https://ap-southeast-1.aws.data.mongodb-api.com/app/application-0-ayiufkj/endpoint/")
+                            .addConverterFactory(GsonConverterFactory.create())
                             .build();
+
+                    PenggunaService service = retrofit.create(PenggunaService.class);
+
+                    Call<List<Pengguna>> call = service.signin(et_username.getText().toString(), et_password.getText().toString());
+
+                    call.enqueue(new Callback<List<Pengguna>>() {
+                        @Override
+                        public void onResponse(Call<List<Pengguna>> call, Response<List<Pengguna>> response) {
+                            
+                        }
+
+                        @Override
+                        public void onFailure(Call<List<Pengguna>> call, Throwable throwable) {
+
+                        }
+                    });
                     //Toast.makeText(getApplicationContext(), "Pengguna tidak terdaftar", Toast.LENGTH_SHORT).show();
                 }
             }
