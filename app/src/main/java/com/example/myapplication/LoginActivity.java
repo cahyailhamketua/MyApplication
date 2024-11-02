@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                             if(data == null){
                                 Toast.makeText(getApplicationContext(),"Pengguna tidak terdaftar", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(getApplicationContext(),"Pengguna terdaftar", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 
                             }
 
